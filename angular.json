@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "GiftHub"
+    }
+  },
+  "defaultProject": "GiftHub",
+  "cli": {
+    "analytics": false
+  }
 }
