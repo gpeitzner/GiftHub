@@ -21,12 +21,22 @@ module.exports = function (config) {
       fixWebpackSourcePaths: true
     },
     reporters: ['progress', 'kjhtml'],
+    customLaunchers: {
+      ChromeHeadless: {
+        base: 'Chrome',
+        flags: [
+          '--headless', '--disable-gpu',
+          '--no-sandbox',
+          '--remote-debugging-port=9222']
+      }
+    },
+    browsers: ['ChromeHeadless'],
+    singleRun: true,
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
-    singleRun: false,
     restartOnFileChange: true
+
   });
 };
