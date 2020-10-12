@@ -27,7 +27,7 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['PhantomJS'], /*remove chrome and replace it with PhantomJS */
-    browserSocketTimeout: 2000000,
+    browserSocketTimeout: 9000000,
     singleRun: true  /*make it true to run test suits only one time*/
   });
 };
