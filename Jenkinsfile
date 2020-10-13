@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    docker { image 'andreysenov/firebase-tools' }
+    docker { image 'zeroplusx/firebase-tools' }
   }
     environment {
         FIREBASE_TOKEN = credentials('FIREBASE_TOKEN')
