@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "prod",
-      "public": "dist/gifthub",
+      "public": "dist/GiftHub",
       "ignore": [
         "firebase.json",
         "**/.*",
@@ -17,7 +17,7 @@
     },
     {
       "target": "dev",
-      "public": "dist/gifthub",
+      "public": "dist/GiftHub",
       "ignore": [
         "firebase.json",
         "**/.*",
