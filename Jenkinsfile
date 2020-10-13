@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    docker { image 'zeroplusx/firebase-tools' }
+    dockerfile true
   }
     environment {
         FIREBASE_TOKEN = credentials('FIREBASE_TOKEN')
@@ -26,6 +26,7 @@ pipeline {
     }
     stage('Publish') {
       steps { 
+          sh 'npm install -g firebase-tools'
           sh 'firebase deploy --token $FIREBASE_TOKEN'
           }
     }
