@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig: {
+    apiKey: 'AIzaSyDGFyXhmYwf6I8szAWyNypMbnR2FfEQdxI',
+    authDomain: 'gifthub-a9756.firebaseapp.com',
+    databaseURL: 'https://gifthub-a9756.firebaseio.com',
+    projectId: 'gifthub-a9756',
+    storageBucket: 'gifthub-a9756.appspot.com',
+    messagingSenderId: '54023282658',
+    appId: '1:54023282658:web:7129d937009e414ff263bb',
+  },
 };
 
 /*
