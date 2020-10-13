@@ -2,6 +2,9 @@ pipeline {
   agent {
     docker { image 'node:latest' }
   }
+    environment {
+        FIREBASE_TOKEN = credentials('FIREBASE_TOKEN')
+    }
   stages {
     stage('Install') {
       steps { sh 'npm install' }
@@ -20,6 +23,12 @@ pipeline {
 
     stage('Build') {
       steps { sh 'npm run-script build' }
+    }
+    stage('Publish') {
+      steps { 
+          sh 'npm install -g firebase-tools'
+          sh 'firebase deploy --token $FIREBASE_TOKEN'
+          }
     }
   }
 }
