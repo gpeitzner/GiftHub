@@ -1,55 +1,54 @@
 <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-sm-4 col-md-6 col-lg-4" style="margin-top: 5vh">
-        <div class="text-center">
-          <img src="assets/logo.png" alt="" srcset="" />
-        </div>
-        <div class="text-center font-weight-light mt-4" style="font-size: 1.5em">
-          Iniciar sesión en GiftHub
-        </div>
-        <div
-          class="alert alert-warning alert-danger fade show mt-4"
-          style="font-size: 0.8em; color: black"
-          role="alert"
-          *ngIf="alert"
+  <div class="row justify-content-center">
+    <div class="col-sm-4 col-md-6 col-lg-4" style="margin-top: 10vh">
+      <div class="text-center">
+        <img src="assets/logo.png" alt="" srcset="" />
+      </div>
+      <div class="text-center font-weight-light mt-4" style="font-size: 1.5em">
+        Iniciar sesión en GiftHub
+      </div>
+      <div
+        class="alert alert-warning alert-danger fade show mt-4"
+        style="font-size: 0.9em; color: black"
+        role="alert"
+        *ngIf="alert"
+      >
+        Usuario o contraseña incorrectos.
+      </div>
+      <div class="border mt-4 p-4">
+        <p class="font-weight-bold" style="font-size: 0.9em">
+          Usuario o correo electrónico
+        </p>
+        <input
+          type="text"
+          name="access"
+          id="access"
+          style="width: 100%"
+          [(ngModel)]="username"
+        />
+        <p class="font-weight-bold mt-3" style="font-size: 0.9em">Contraseña</p>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          style="width: 100%"
+          [(ngModel)]="password"
+        />
+        <button
+          type="button"
+          class="btn btn-success mt-3"
+          style="width: 100%"
+          id="login"
+          (click)="login()"
         >
-          Usuario o contraseña incorrectos.
-          <button
-            type="button"
-            class="close"
-            data-dismiss="alert"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="border mt-4 p-4">
-          <p class="font-weight-bold" style="font-size: 0.9em">
-            Usuario o correo electrónico
-          </p>
-          <input type="text" name="access" id="access" style="width: 100%" />
-          <p class="font-weight-bold mt-3" style="font-size: 0.9em">Contraseña</p>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            style="width: 100%"
-          />
-          <button
-            type="button"
-            class="btn btn-success mt-3"
-            style="width: 100%"
-            id="login"
-          >
-            Entrar
-          </button>
-        </div>
-        <div class="border my-4 pt-3">
-          <p class="text-center" style="font-size: 0.9em">
-            Nuevo en GiftHub? <a href="">Crear una cuenta.</a>
-          </p>
-        </div>
+          Entrar
+        </button>
+      </div>
+      <div class="border my-4 pt-3">
+        <p class="text-center" style="font-size: 0.9em">
+          Nuevo en GiftHub? <a href="/registro">Crea una cuenta.</a>
+        </p>
       </div>
     </div>
   </div>
-  
+</div>
