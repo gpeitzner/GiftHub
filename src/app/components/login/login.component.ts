@@ -7,6 +7,8 @@ import { users } from '../../mocks/users';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  alert: boolean = false;
+
   constructor() {}
 
   ngOnInit(): void {}
