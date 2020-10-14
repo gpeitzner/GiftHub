@@ -23,11 +23,11 @@ describe('LoginComponent', () => {
   });
 
   it('should render login form', () => {
-    const fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(LoginComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('#access')).toBeDefined();
-    expect(compiled.querySelector("#password")).toBeDefined();
-    expect(compiled.querySelector("#login")).toBeDefined();
+    expect(compiled.querySelector('#password')).toBeDefined();
+    expect(compiled.querySelector('#login')).toBeDefined();
   });
 });
