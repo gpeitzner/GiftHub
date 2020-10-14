@@ -1,0 +1,17 @@
+{
+  "targets": {
+    "gifthub-a9756": {
+      "hosting": {
+        "prod": [
+          "gifthub-a9756"
+        ],
+        "dev": [
+          "gifthub-staging"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "gifthub-a9756"
+  }
+}
