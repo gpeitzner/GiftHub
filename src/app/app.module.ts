@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { GiftcardsComponent } from './components/giftcards/giftcards.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, GiftcardsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
