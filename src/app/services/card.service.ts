@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { Card } from '../interfaces/card';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CardsService {
+export class CardService {
 
   constructor( private http: HttpClient ) { }
 

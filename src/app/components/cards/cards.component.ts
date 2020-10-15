@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CardsService } from 'src/app/services/cards.service';
+import { CardService } from 'src/app/services/card.service';
 import { Card } from '../../interfaces/card';
 
 @Component({
@@ -10,13 +10,13 @@ import { Card } from '../../interfaces/card';
 export class CardsComponent implements OnInit {
   tarjetas: Card[] = [];
 
-  constructor( private cardsService: CardsService ) { }
+  constructor( private cardsService: CardService ) { }
 
   ngOnInit(): void {
     this.cardsService.getCards()
     .subscribe((result) => {
       this.tarjetas = result;
-      console.log(this.tarjetas[0].id);
+      // console.log(this.tarjetas[0].id);
     }, () => {}
     );
   }
