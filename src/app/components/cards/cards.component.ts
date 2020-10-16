@@ -13,10 +13,13 @@ export class CardsComponent implements OnInit {
   constructor( private cardsService: CardService ) { }
 
   ngOnInit(): void {
+    this.cargarTarjetas();
+  }
+
+  cargarTarjetas(): void{
     this.cardsService.getCards()
     .subscribe((result) => {
       this.tarjetas = result;
-      // console.log(this.tarjetas[0].id);
     }, () => {}
     );
   }
