@@ -49,6 +49,6 @@ describe('RegistroComponent', () => {
       edad: '22'
     });
     fixture.nativeElement.querySelector('button').click();
-    expect(component.valid).toBeFalse();
+    expect(component.valid).toBeTrue();
   });
 });

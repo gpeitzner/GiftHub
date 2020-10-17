@@ -11,10 +11,15 @@ import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CardService } from './services/card.service';
 import { RegistroComponent } from './components/registro/registro.component';
-import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CardsComponent, RegistroComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    CardsComponent,
+    RegistroComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -22,7 +27,7 @@ import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [CardService],
   bootstrap: [AppComponent],

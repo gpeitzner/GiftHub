@@ -2,51 +2,107 @@
   <div class="row justify-content-center">
     <div class="col-sm-4 col-md-6 col-lg-4" style="margin-top: 10vh">
       <div class="text-center font-weight-light mt-4" style="font-size: 1.5em">
-        Join GiftHub
         <div class="text-center">
           <img src="assets/logo.png" alt="" srcset="" />
         </div>
+        Join GiftHub
       </div>
-      <br>
-      <br>
-      <form [formGroup]="registerForm" id="registerForm" (ngSubmit)="register()">
+      <br />
+      <br />
+      <form
+        [formGroup]="registerForm"
+        id="registerForm"
+        (ngSubmit)="register()"
+        class="border p-4"
+      >
         <div>
           <p class="font-weight-bold" style="font-size: 0.9em">Username:*</p>
-          <input type="text" class="form-control" placeholder="Username" 
-          aria-label="Username" aria-describedby="basic-addon2" formControlName="username" id="username">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Username"
+            aria-label="Username"
+            aria-describedby="basic-addon2"
+            formControlName="username"
+            id="username"
+          />
         </div>
         <div>
           <p class="font-weight-bold" style="font-size: 0.9em">Password:*</p>
-          <input type="password" class="form-control" placeholder="Password" 
-          aria-label="Password" aria-describedby="basic-addon2" formControlName="password" id="password">
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Password"
+            aria-label="Password"
+            aria-describedby="basic-addon2"
+            formControlName="password"
+            id="password"
+          />
         </div>
         <div>
           <p class="font-weight-bold" style="font-size: 0.9em">Nombre:</p>
-          <input type="text" class="form-control" placeholder="Nombre" 
-          aria-label="Nombre" aria-describedby="basic-addon2" formControlName="nombre" id="nombre">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nombre"
+            aria-label="Nombre"
+            aria-describedby="basic-addon2"
+            formControlName="nombre"
+            id="nombre"
+          />
         </div>
         <div>
           <p class="font-weight-bold" style="font-size: 0.9em">Apellido:</p>
-          <input type="text" class="form-control" placeholder="Apellido" 
-          aria-label="Apellido" aria-describedby="basic-addon2" formControlName="apellido" id="apellido">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Apellido"
+            aria-label="Apellido"
+            aria-describedby="basic-addon2"
+            formControlName="apellido"
+            id="apellido"
+          />
         </div>
         <div>
           <p class="font-weight-bold" style="font-size: 0.9em">Correo:</p>
-          <input type="email" class="form-control" placeholder="Correo" 
-          aria-label="Correo" aria-describedby="basic-addon2" formControlName="correo" id="correo">
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Correo"
+            aria-label="Correo"
+            aria-describedby="basic-addon2"
+            formControlName="correo"
+            id="correo"
+          />
         </div>
         <div>
           <p class="font-weight-bold" style="font-size: 0.9em">DPI:</p>
-          <input type="text" class="form-control" placeholder="DPI" 
-          aria-label="DPI" aria-describedby="basic-addon2"formControlName="dpi" id="dpi">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="DPI"
+            aria-label="DPI"
+            aria-describedby="basic-addon2"
+            formControlName="dpi"
+            id="dpi"
+          />
         </div>
         <div>
           <p class="font-weight-bold" style="font-size: 0.9em">Edad:</p>
-          <input type="text" class="form-control" placeholder="Edad" 
-          aria-label="Edad" aria-describedby="basic-addon2"formControlName="edad" id="edad">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Edad"
+            aria-label="Edad"
+            aria-describedby="basic-addon2"
+            formControlName="edad"
+            id="edad"
+          />
         </div>
-        <button type="submit" class="btn btn-success mt-3" style="width: 100%">Enviar</button>
-      </form> 
+        <button type="submit" class="btn btn-success mt-3" style="width: 100%">
+          Enviar
+        </button>
+      </form>
     </div>
   </div>
 </div>
