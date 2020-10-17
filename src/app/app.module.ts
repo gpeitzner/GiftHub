@@ -6,20 +6,25 @@ import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { CardsComponent } from './components/cards/cards.component';
+import { LoginComponent } from './components/login/login.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CardService } from './services/card.service';
 import { RegistroComponent } from './components/registro/registro.component';
 import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, RegistroComponent],
+  declarations: [AppComponent, LoginComponent, CardsComponent, RegistroComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [CardService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
