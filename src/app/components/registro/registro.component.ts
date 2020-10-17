@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators ,ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
-  styleUrls: ['./registro.component.css']
+  styleUrls: ['./registro.component.css'],
 })
 export class RegistroComponent implements OnInit {
   registerForm: FormGroup;
@@ -18,18 +23,18 @@ export class RegistroComponent implements OnInit {
       apellido: ['', Validators.required],
       correo: ['', Validators.required],
       dpi: ['', Validators.required],
-      edad: ['', Validators.required]
+      edad: ['', Validators.required],
     });
   }
-  ngOnInit(): void {
-  }
-  register(){
-    this.valid=false;
-    let userRegister = "no_register";
+  ngOnInit(): void {}
+
+  register(): any {
+    this.valid = false;
+    let userRegister = 'no_register';
     console.log('Valores del form --> ', this.registerForm.value);
-    if(this.registerForm.valid) {
-      this.valid=true;
-      userRegister = "register";
+    if (this.registerForm.valid) {
+      this.valid = true;
+      userRegister = 'register';
     }
     console.log('Respuesta del servicio de registro --> ', userRegister);
     return userRegister;

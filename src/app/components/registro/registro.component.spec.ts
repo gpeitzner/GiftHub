@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule, FormBuilder,FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormsModule } from '@angular/forms';
 import { RegistroComponent } from './registro.component';
 
 describe('RegistroComponent', () => {
@@ -7,15 +7,12 @@ describe('RegistroComponent', () => {
   let fixture: ComponentFixture<RegistroComponent>;
   const formBuilder: FormBuilder = new FormBuilder();
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ 
-        RegistroComponent
-      ],
-      imports: [FormsModule,ReactiveFormsModule],
-    })
-    .compileComponents();
-  }));
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [RegistroComponent],
+      imports: [FormsModule, ReactiveFormsModule],
+    }).compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RegistroComponent);
@@ -37,7 +34,7 @@ describe('RegistroComponent', () => {
     expect(compiled.querySelector('#dpi')).toBeDefined();
     expect(compiled.querySelector('#edad')).toBeDefined();
   });
-  
+
   it('should response correct by not filling all the fields', () => {
     component.registerForm = formBuilder.group({
       username: 'usertest',
@@ -46,7 +43,7 @@ describe('RegistroComponent', () => {
       apellido: 'Test',
       dpi: '30018959',
       correo: 'test@gmail.com',
-      edad: '22'
+      edad: '22',
     });
     fixture.nativeElement.querySelector('button').click();
     expect(component.valid).toBeTrue();
