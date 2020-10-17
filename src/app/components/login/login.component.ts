@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { users } from '../../mocks/users';
 
 @Component({
@@ -10,7 +11,7 @@ export class LoginComponent implements OnInit {
   alert: boolean;
   username: string;
   password: string;
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
       });
       if (filteredUser.length === 1) {
         this.alert = false;
+        this.router.navigateByUrl('/catalogo');
       } else {
         this.username = '';
         this.password = '';
