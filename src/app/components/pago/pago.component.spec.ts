@@ -1,4 +1,4 @@
-import { async,ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormBuilder, FormsModule } from '@angular/forms';
 import { PagoComponent } from './pago.component';
 
@@ -9,10 +9,9 @@ describe('PagoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PagoComponent ],
+      declarations: [PagoComponent],
       imports: [FormsModule, ReactiveFormsModule],
-    })
-    .compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -44,5 +43,4 @@ describe('PagoComponent', () => {
     fixture.nativeElement.querySelector('button').click();
     expect(component.valid).toBeTrue();
   });
-
 });
