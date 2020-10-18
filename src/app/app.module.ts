@@ -12,6 +12,7 @@ import { CardService } from './services/card.service';
 import { RegistroComponent } from './components/registro/registro.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GiftcardsComponent } from './components/giftcards/giftcards.component';
+import { PagoComponent } from './components/pago/pago.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { GiftcardsComponent } from './components/giftcards/giftcards.component';
     LoginComponent,
     CardsComponent,
     RegistroComponent,
-    GiftcardsComponent
+    GiftcardsComponent,
+    PagoComponent,
   ],
   imports: [
     BrowserModule,
