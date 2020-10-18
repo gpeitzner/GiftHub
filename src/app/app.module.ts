@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CardService } from './services/card.service';
 import { RegistroComponent } from './components/registro/registro.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PagoComponent } from './components/pago/pago.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     CardsComponent,
     RegistroComponent,
+    PagoComponent,
   ],
   imports: [
     BrowserModule,
