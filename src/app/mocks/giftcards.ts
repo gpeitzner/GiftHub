@@ -34,5 +34,23 @@ export const giftcards = [
         name: 'PlayStation',
         image: 'https://www.allkeyshop.com/blog/wp-content/uploads/PlayStationNetworkGiftCard.jpg',
         valor: '50'
+    },
+    {
+        id: '7',
+        name: 'PlayStation',
+        image: 'https://www.allkeyshop.com/blog/wp-content/uploads/PlayStationNetworkGiftCard.jpg',
+        valor: '50'
+    },
+    {
+        id: '8',
+        name: 'PlayStation',
+        image: 'https://www.allkeyshop.com/blog/wp-content/uploads/PlayStationNetworkGiftCard.jpg',
+        valor: '50'
+    },
+    {
+        id: '9',
+        name: 'PlayStation',
+        image: 'https://www.allkeyshop.com/blog/wp-content/uploads/PlayStationNetworkGiftCard.jpg',
+        valor: '50'
     }
 ];

@@ -22,10 +22,12 @@ describe('GiftcardsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should render title', () => {
+  it('Crea los componentes', () => {
     fixture = TestBed.createComponent(GiftcardsComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('2');
+    expect(compiled.querySelector('#contenedor')).toBeDefined();
+    expect(compiled.querySelector('#tarjetas')).toBeDefined();
+    expect(compiled.querySelector('#id')).toBeDefined();
   });
 });
