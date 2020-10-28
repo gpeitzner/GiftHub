@@ -1,4 +1,8 @@
-<div class="container" id="contenedor">
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Giftcards</a>
+</nav>
+<div class="p-3 mb-2 bg-secondary text-dark">
+  <div class="container" id="contenedor">
     <div class="row row-cols-1 row-cols-md-4" id="tarjetas">
         <div class="col mb-4" *ngFor="let tarjeta of datos" id="for">
             <div class="card">
@@ -7,8 +11,37 @@
                   <h5 class="card-title">{{tarjeta.name}}</h5>
                   <p class="card-text">Valor: {{tarjeta.valor}}</p>
                   <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                  <button type="button" class="btn btn-light" (click)="boton(tarjeta.id)" data-toggle="modal" data-target="#exampleModal">Regalar giftcard</button>
                 </div>
               </div>
         </div>
       </div>
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Usuarios disponibles</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="list-group">
+                <a class="list-group-item list-group-item-action active">
+                  Usuarios
+                </a>
+                <div *ngFor="let usuario of usuarios">
+                  <a (click)="registrarusuario(usuario.username)" class="list-group-item list-group-item-action">{{usuario.username}}</a>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" (click)="regalar(5)" data-dismiss="modal">Regalar</button>
+            </div>
+          </div>
+        </div>
+      </div>
 </div>
+</div>
+
