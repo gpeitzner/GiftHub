@@ -13,7 +13,6 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GiftcardsComponent } from './components/giftcards/giftcards.component';
 import { PagoComponent } from './components/pago/pago.component';
-
 @NgModule({
   declarations: [
     AppComponent,
