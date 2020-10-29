@@ -26,4 +26,17 @@ export class RegistroService {
         .then(res => { console.log(res); }, err => reject(err));
     });
   }
+
+  getUser(): any {
+    return this.firestore.collection('Usuario').snapshotChanges();
+  }
+
+  updateUser(data: any, id: any): any {
+    return this.firestore
+      .collection('Usuario')
+      .doc(id)
+      .set({  username: data.username, password: data.password, nombre: data.nombre,
+            apellido: data.apellido, correo: data.correo, dpi: data.dpi, edad: data.edad }, { merge: true });
+  }
+
 }
