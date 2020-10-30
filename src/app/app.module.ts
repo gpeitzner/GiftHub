@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GiftcardsComponent } from './components/giftcards/giftcards.component';
 import { PagoComponent } from './components/pago/pago.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { HistoryComponent } from './components/history/history.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { PerfilComponent } from './components/perfil/perfil.component';
     RegistroComponent,
     GiftcardsComponent,
     PagoComponent,
-    PerfilComponent
+    PerfilComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,
