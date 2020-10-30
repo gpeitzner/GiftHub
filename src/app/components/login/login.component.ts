@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
                   } else {
                     this.userService.user = usernameResults[0];
                     this.alert = false;
-                    localStorage.setItem('username',this.username);
+                    localStorage.setItem('username', this.username);
                     this.router.navigateByUrl('/Catalogo');
                   }
                 },
