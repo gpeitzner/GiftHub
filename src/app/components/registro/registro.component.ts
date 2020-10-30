@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RegistroService } from 'src/app/services/registro.service';
+import { Router } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -14,8 +16,7 @@ import {
 export class RegistroComponent implements OnInit {
   registerForm: FormGroup;
   valid: boolean;
-
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private registroS: RegistroService, private router: Router) {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -31,10 +32,22 @@ export class RegistroComponent implements OnInit {
   register(): any {
     this.valid = false;
     let userRegister = 'no_register';
-    console.log('Valores del form --> ', this.registerForm.value);
+
     if (this.registerForm.valid) {
       this.valid = true;
       userRegister = 'register';
+      this.registroS.form.value.username  = this.registerForm.value.username;
+      this.registroS.form.value.nombre = this.registerForm.value.nombre;
+      this.registroS.form.value.apellido = this.registerForm.value.apellido;
+      this.registroS.form.value.password = this.registerForm.value.password;
+      this.registroS.form.value.correo = this.registerForm.value.correo;
+      this.registroS.form.value.dpi = this.registerForm.value.dpi;
+      this.registroS.form.value.edad = this.registerForm.value.edad;
+      const data = this.registroS.form.value;
+      this.registroS.createUser(data).then(res => {
+        console.log(res);
+      });
+      this.router.navigateByUrl('/login');
     }
     console.log('Respuesta del servicio de registro --> ', userRegister);
     return userRegister;

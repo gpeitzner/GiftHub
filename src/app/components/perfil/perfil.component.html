@@ -1,0 +1,71 @@
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<br><br>
+<div class="container bootstrap snippet">
+
+    <div class="row">
+        <div class="col-sm-10"><h1>{{ usuario.username }}</h1></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3"><!--left col-->
+        </div><!--/col-3-->
+    	<div class="col-sm-9">
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
+                <hr>
+                  <form class="form" id="registrationForm">
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="nombre"><h4>Nombre</h4></label>
+                            <input type="text" class="form-control" [(ngModel)]="usuario.nombre" name="nombre" id="nombre" placeholder="nombre" title="Nombre">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="apellido"><h4>Apellido</h4></label>
+                            <input type="text" class="form-control" [(ngModel)]="usuario.apellido" name="apellido" id="apellido" placeholder="apellido" title="Apellido">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="password"><h4>Password</h4></label>
+                            <input type="password" class="form-control" [(ngModel)]="usuario.password" name="password" id="password" placeholder="Password" title="password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="correo"><h4>Correo</h4></label>
+                            <input type="text" class="form-control" [(ngModel)]="usuario.correo" name="correo" id="correo" placeholder="Correo" title="correo">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="dpi"><h4>DPI</h4></label>
+                            <input type="text" class="form-control" [(ngModel)]="usuario.dpi" name="dpi" id="dpi" placeholder="Dpi" title="dpi">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <label for="edad"><h4>EDAD</h4></label>
+                            <input type="text" class="form-control" [(ngModel)]="usuario.edad" name="edad" id="edad" placeholder="Edad" title="edad">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <br>
+                                <button class="btn btn-lg btn-success" type="submit" (click)="actualizar()"><i class="glyphicon glyphicon-ok-sign"></i> Guardar</button>
+                                <button class="btn btn-lg btn-danger" type="submit" (click)="cancelar()"><i class="glyphicon glyphicon-remove-sign"></i> Cancelar</button>
+                        </div>
+                    </div>
+              	</form>              
+            <hr>
+            </div><!--/tab-pane-->
+            </div><!--/tab-pane-->
+        </div><!--/tab-content-->
+
+    </div><!--/col-9-->
+</div><!--/row-->
