@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { users } from '../../mocks/users';
+import { UsuarioI } from 'src/app/interfaces/usuario.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
   alert: boolean;
   username: string;
   password: string;
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {}
 
@@ -20,20 +21,40 @@ export class LoginComponent implements OnInit {
    */
   login(): void {
     if (this.username && this.password) {
-      const filteredUser = users.filter((user) => {
-        return (
-          (user.username === this.username || user.email === this.username) &&
-          user.password === this.password
-        );
-      });
-      if (filteredUser.length === 1) {
-        this.alert = false;
-        this.router.navigateByUrl('/Catalogo');
-      } else {
-        this.username = '';
-        this.password = '';
-        this.alert = true;
-      }
+      this.userService.loginByEmail(this.username, this.password).subscribe(
+        (emailResults: UsuarioI[]) => {
+          if (emailResults.length === 0) {
+            this.userService
+              .loginByUser(this.username, this.password)
+              .subscribe(
+                (usernameResults: UsuarioI[]) => {
+                  if (usernameResults.length === 0) {
+                    this.showLoginError();
+                  } else {
+                    this.userService.user = usernameResults[0];
+                    this.alert = false;
+                    this.router.navigateByUrl('/Catalogo');
+                  }
+                },
+                () => this.showLoginError()
+              );
+          } else {
+            this.userService.user = emailResults[0];
+            this.alert = false;
+            this.router.navigateByUrl('/Catalogo');
+          }
+        },
+        () => this.showLoginError()
+      );
     }
+  }
+
+  /**
+   * Show login error message
+   */
+  showLoginError(): void {
+    this.username = '';
+    this.password = '';
+    this.alert = true;
   }
 }
