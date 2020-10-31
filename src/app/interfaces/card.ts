@@ -3,5 +3,6 @@ export interface Card {
     name: string;
     image: string;
     chargeRate: number;
+    active: boolean;
     availability: number[];
 }

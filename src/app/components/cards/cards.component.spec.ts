@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CardsComponent } from './cards.component';
-import { cards } from '../../mocks/cards';
+import { cards, precios } from '../../mocks/cards';
 import { Card } from 'src/app/interfaces/card';
 import { CardService } from 'src/app/services/card.service';
 import { Observable, of } from 'rxjs';
 import { By } from '@angular/platform-browser';
+import { Precio } from '../../interfaces/Precio';
 
 describe('CardsComponent', () => {
   let component: CardsComponent;
@@ -69,5 +70,8 @@ describe('CardsComponent', () => {
 class CardsServiceMock {
   public getCards(): Observable<Card[]> {
     return of(cards);
+  }
+  public getValue(): Observable<Precio[]> {
+    return of(precios);
   }
 }

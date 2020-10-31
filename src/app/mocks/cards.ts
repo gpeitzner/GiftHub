@@ -5,6 +5,7 @@ export const cards =
     name: 'Google Play',
     image: 'https://media.karousell.com/media/photos/products/2020/5/21/rm50_goggle_play_gift_card_mal_1590040469_c1100b5a_progressive.jpg',
     chargeRate: 1,
+    active: false,
     availability: [
       1,
       2,
@@ -17,6 +18,7 @@ export const cards =
     name: 'PlayStation',
     image: 'https://www.allkeyshop.com/blog/wp-content/uploads/PlayStationNetworkGiftCard.jpg',
     chargeRate: 0.25,
+    active: true,
     availability: [
       1,
       2,
@@ -28,6 +30,7 @@ export const cards =
     name: 'Steam',
     image: 'https://mojolika.com/wp-content/uploads/2019/04/196.png',
     chargeRate: 0.1,
+    active: true,
     availability: [
       1,
       3
@@ -38,6 +41,7 @@ export const cards =
     name: 'Amazon',
     image: 'https://www.shopmyexchange.com/products/images/xlarge/2008097_0000.jpg',
     chargeRate: 0.5,
+    active: false,
     availability: [
       2,
       4
@@ -48,9 +52,31 @@ export const cards =
     name: 'Microsoft',
     image: 'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1XIn1?ver=1a7a',
     chargeRate: 0.75,
+    active: true,
     availability: [
       2,
       3
     ]
   }
 ];
+
+export const precios =
+[
+  {
+    id: '1',
+    total: 10
+  },
+  {
+    id: '2',
+    total: 25
+  },
+  {
+    id: '3',
+    total: 50
+  },
+  {
+    id: '4',
+    total: 100
+  }
+]
+;
