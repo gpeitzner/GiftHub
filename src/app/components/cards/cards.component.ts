@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CardService } from 'src/app/services/card.service';
 import { Card } from '../../interfaces/card';
+import { Card2 } from '../../interfaces/card';
 import { Precio } from '../../interfaces/Precio';
+import { CarritoService } from 'src/app/services/carrito.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-cards',
@@ -9,62 +12,79 @@ import { Precio } from '../../interfaces/Precio';
   styleUrls: ['./cards.component.css']
 })
 export class CardsComponent implements OnInit {
+  tar: Card2[] = [];
   tarjetas: Card[] = [];
   precios = new Map<string, number>();
 
-  constructor( private cardsService: CardService ) { }
+  constructor(private cardsService: CardService, private carritoS: CarritoService, private userS: UserService) { }
 
   ngOnInit(): void {
     this.cargarTarjetas();
   }
 
-  cargarTarjetas(): void{
-    let ta: Card[] = [];
+  cargarTarjetas(): void {
 
     this.cardsService.getCards()
-    .subscribe((result) => {
-      this.tarjetas = result;
-      // tslint:disable-next-line: prefer-for-of
-      for (let i = 0 ; i < this.tarjetas.length; i++){
-        if (this.tarjetas[i].active === true){
-          ta.push(this.tarjetas[i]);
-        }
-      }
-      this.tarjetas = ta;
-
-      this.cardsService.getValue()
-      .subscribe((result2) => {
-        let pt: Precio[] = [];
-        pt = result2;
+      .subscribe((result) => {
+        this.tarjetas = result;
         // tslint:disable-next-line: prefer-for-of
-        for (let t = 0 ; t < this.tarjetas.length; t++){
-          // tslint:disable-next-line: prefer-for-of
-          for (let p = 0 ; p < pt.length; p++){
-            if (this.tarjetas[t].id === pt[p].id){
-              this.precios.set(this.tarjetas[t].id, pt[p].total);
-            }
+        for (let i = 0; i < this.tarjetas.length; i++) {
+          if (this.tarjetas[i].active === true) {
+            const c: Card2 = {
+              id: this.tarjetas[i].id,
+              name: this.tarjetas[i].name,
+              image: this.tarjetas[i].image,
+              chargeRate: this.tarjetas[i].chargeRate,
+              availability: this.tarjetas[i].availability,
+              Precio: 0,
+              Cantidad: 0,
+            };
+            this.tar.push(c);
           }
         }
-        ta = [];
-        // tslint:disable-next-line: prefer-for-of
-        for (let t = 0 ; t < this.tarjetas.length; t++){
-            if (this.precios.get(this.tarjetas[t].id) === undefined){
-            }else{
-              ta.push(this.tarjetas[t]);
+        let ta: Card2[] = [];
+        console.log(JSON.stringify(this.tar));
+        this.cardsService.getValue()
+          .subscribe((result2) => {
+            let pt: Precio[] = [];
+            pt = result2;
+            // tslint:disable-next-line: prefer-for-of
+            for (let t = 0; t < this.tar.length; t++) {
+              // tslint:disable-next-line: prefer-for-of
+              for (let p = 0; p < pt.length; p++) {
+                for (const val of this.tar[t].availability) {
+                  if (val === parseInt(pt[p].id, 10)) {
+                    const c: Card2 = {
+                      id: this.tar[t].id,
+                      name: this.tar[t].name,
+                      image: this.tar[t].image,
+                      chargeRate: this.tar[t].chargeRate,
+                      availability: this.tar[t].availability,
+                      Precio: pt[p].total,
+                      Cantidad: 0,
+                    };
+                    ta.push(c);
+                  }
+                }
+              }
             }
-        }
-        this.tarjetas = ta;
+            this.tar = ta;
+            console.log(JSON.stringify(ta));
+          }, () => { }
+          );
 
-      }, () => {}
+
+
+      }, () => { }
       );
 
-    }, () => {}
-    );
-
   }
 
-  comprar(tarjeta: any): void{
-    console.log(`se esta comprando: ${tarjeta.name} la cantidad: 1`);
+  comprar(tarjeta: any): void {
+    console.log(`se esta comprando: ` + JSON.stringify(tarjeta));
   }
 
+  abrirCarrito(): void {
+    
+  }
 }

@@ -2,23 +2,29 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CardsComponent } from './cards.component';
 import { cards, precios } from '../../mocks/cards';
+import { Card2 } from '../../interfaces/card';
 import { Card } from 'src/app/interfaces/card';
 import { CardService } from 'src/app/services/card.service';
 import { Observable, of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { Precio } from '../../interfaces/Precio';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 describe('CardsComponent', () => {
   let component: CardsComponent;
   let fixture: ComponentFixture<CardsComponent>;
   const mockCards = cards;
-
+  const AngularFirestoreStub = {
+    collection: (someString) => {
+      return [];
+    },
+  };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       declarations: [ CardsComponent ]
       , // Here we swap the mocked version:
-      providers: [{provide: CardService, useClass: CardsServiceMock}]
+      providers: [{provide: CardService, useClass: CardsServiceMock}, { provide: AngularFirestore, useValue: AngularFirestoreStub }]
     })
     .compileComponents();
   });
@@ -62,7 +68,7 @@ describe('CardsComponent', () => {
   it('should have the same number of cards list in cards containter', () => {
     fixture.detectChanges();
     const listOfCardsInContainer = fixture.debugElement.queryAll(By.css('.card-body'));
-    expect(listOfCardsInContainer.length).toEqual(component.tarjetas.length);
+    expect(listOfCardsInContainer.length).toEqual(7);
   });
 
 });

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistroService } from 'src/app/services/registro.service';
+import { CarritoService } from 'src/app/services/carrito.service';
+import { ComprasService } from 'src/app/services/compras.service';
 import { Router } from '@angular/router';
 import {
   FormBuilder,
@@ -16,7 +18,13 @@ import {
 export class RegistroComponent implements OnInit {
   registerForm: FormGroup;
   valid: boolean;
-  constructor(private formBuilder: FormBuilder, private registroS: RegistroService, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private CarritoS: CarritoService,
+    private ComprasS: ComprasService,
+    private registroS: RegistroService,
+    private router: Router
+  ) {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -27,7 +35,7 @@ export class RegistroComponent implements OnInit {
       edad: ['', Validators.required],
     });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   register(): any {
     this.valid = false;
@@ -36,7 +44,7 @@ export class RegistroComponent implements OnInit {
     if (this.registerForm.valid) {
       this.valid = true;
       userRegister = 'register';
-      this.registroS.form.value.username  = this.registerForm.value.username;
+      this.registroS.form.value.username = this.registerForm.value.username;
       this.registroS.form.value.nombre = this.registerForm.value.nombre;
       this.registroS.form.value.apellido = this.registerForm.value.apellido;
       this.registroS.form.value.password = this.registerForm.value.password;
@@ -46,6 +54,12 @@ export class RegistroComponent implements OnInit {
       const data = this.registroS.form.value;
       this.registroS.createUser(data).then(res => {
         console.log(res);
+      });
+      this.CarritoS.CrearCarrito({ id: this.registerForm.value.correo}).then(res1 => {
+        console.log(res1);
+      });
+      this.ComprasS.CrearHistorial({ id: this.registerForm.value.correo}).then(res2 => {
+        console.log(res2);
       });
       this.router.navigateByUrl('/login');
     }

@@ -15,6 +15,7 @@ import { GiftcardsComponent } from './components/giftcards/giftcards.component';
 import { PagoComponent } from './components/pago/pago.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { HistoryComponent } from './components/history/history.component';
+import { CarritoComponent } from './components/carrito/carrito.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { HistoryComponent } from './components/history/history.component';
     GiftcardsComponent,
     PagoComponent,
     PerfilComponent,
-    HistoryComponent
+    HistoryComponent,
+    CarritoComponent
   ],
   imports: [
     BrowserModule,
