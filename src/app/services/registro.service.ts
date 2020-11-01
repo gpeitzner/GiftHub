@@ -22,7 +22,8 @@ export class RegistroService {
     return new Promise<any>((resolve, reject) => {
       this.firestore
         .collection('Usuario')
-        .add(data)
+        .doc(data.correo)
+        .set(data)
         .then(res => { console.log(res); }, err => reject(err));
     });
   }

@@ -55,12 +55,6 @@ export class RegistroComponent implements OnInit {
       this.registroS.createUser(data).then(res => {
         console.log(res);
       });
-      this.CarritoS.CrearCarrito({ id: this.registerForm.value.correo}).then(res1 => {
-        console.log(res1);
-      });
-      this.ComprasS.CrearHistorial({ id: this.registerForm.value.correo}).then(res2 => {
-        console.log(res2);
-      });
       this.router.navigateByUrl('/login');
     }
     console.log('Respuesta del servicio de registro --> ', userRegister);

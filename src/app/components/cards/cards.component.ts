@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CardService } from 'src/app/services/card.service';
-import { Card } from '../../interfaces/card';
-import { Card2 } from '../../interfaces/card';
+import { Card, Card2, Card3 } from '../../interfaces/card';
 import { Precio } from '../../interfaces/Precio';
 import { CarritoService } from 'src/app/services/carrito.service';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cards',
@@ -15,8 +15,9 @@ export class CardsComponent implements OnInit {
   tar: Card2[] = [];
   tarjetas: Card[] = [];
   precios = new Map<string, number>();
+  data = [];
 
-  constructor(private cardsService: CardService, private carritoS: CarritoService, private userS: UserService) { }
+  constructor(private cardsService: CardService, private carritoS: CarritoService, private userS: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.cargarTarjetas();
@@ -42,8 +43,8 @@ export class CardsComponent implements OnInit {
             this.tar.push(c);
           }
         }
-        let ta: Card2[] = [];
-        console.log(JSON.stringify(this.tar));
+        const ta: Card2[] = [];
+        // console.log(JSON.stringify(this.tar));
         this.cardsService.getValue()
           .subscribe((result2) => {
             let pt: Precio[] = [];
@@ -69,7 +70,7 @@ export class CardsComponent implements OnInit {
               }
             }
             this.tar = ta;
-            console.log(JSON.stringify(ta));
+            // console.log(JSON.stringify(ta));
           }, () => { }
           );
 
@@ -80,11 +81,26 @@ export class CardsComponent implements OnInit {
 
   }
 
-  comprar(tarjeta: any): void {
+  Agregar(tarjeta: any): void {
     console.log(`se esta comprando: ` + JSON.stringify(tarjeta));
+    console.log(`se esta comprando: ${tarjeta.name} la cantidad: 1`);
+    console.log((this.userS.user.correo));
+    const obj = {
+      nombre: tarjeta.name,
+      cantidad: tarjeta.Cantidad,
+      precio: parseFloat(tarjeta.Precio),
+      total: parseFloat(tarjeta.Cantidad) * parseFloat(tarjeta.Precio),
+      imagen: tarjeta.image,
+      chargeRate: tarjeta.chargeRate
+    };
+
+    this.carritoS.CrearCarrito(this.userS.user.correo, obj).then(res => {
+      console.log(res);
+    });
+
   }
 
   abrirCarrito(): void {
-    
+    this.router.navigateByUrl('/Carrito');
   }
 }

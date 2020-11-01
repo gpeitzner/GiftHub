@@ -1,32 +1,47 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-
+import { Observable } from 'rxjs';
+import { Card3 } from '../interfaces/card';
 @Injectable({
   providedIn: 'root'
 })
 export class CarritoService {
 
   constructor(private firestore: AngularFirestore) { }
-  CrearCarrito(data: any): any {
+  CrearCarrito(email: any, data: any): any {
     return new Promise<any>((resolve, reject) => {
       this.firestore
-        .collection('Carrito')
-        .doc(data.id)
-        .set({ Carrito: [{}] },
-          { merge: true })
-        .then(res => { console.log(res); }, err => reject(err));
+        .collection('Usuario/' + email + '/Carrito')
+        .add(data)
+        .then(res => { resolve(res); }, err => reject(err));
     });
   }
 
-  ActualizarCarrito(data: any, tarjeta: any): any {
-    console.log(tarjeta);
+  getCarrito(email: any): any {
+    return this.firestore
+      .collection('Usuario/' + email + '/Carrito')
+      .valueChanges({ idField: 'customIdName' });
+
+  }
+
+  UpdateTarjeta(email: any, id: any, data: any): any {
     return new Promise<any>((resolve, reject) => {
       this.firestore
-        .collection('Carrito')
-        .doc(data)
-        .set({ Carrito: tarjeta },
-          { merge: true })
-        .then(res => { console.log(res); console.log(tarjeta); }, err => reject(err));
+        .collection('Usuario/' + email + '/Carrito')
+        .doc(id)
+        .update(data)
+        .then(res => { resolve(res); }, err => reject(err));
     });
   }
+
+  DeleteTarjeta(email: any, id: any): any {
+    return new Promise<any>((resolve, reject) => {
+      this.firestore
+        .collection('Usuario/' + email + '/Carrito')
+        .doc(id)
+        .delete()
+        .then(res => { resolve(res); }, err => reject(err));
+    });
+  }
+
 }

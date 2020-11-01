@@ -7,26 +7,16 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class ComprasService {
 
   constructor(private firestore: AngularFirestore) { }
-  CrearHistorial(data: any): any {
+  CrearHistorial(email: any, data: any): any {
     return new Promise<any>((resolve, reject) => {
       this.firestore
-        .collection('Compras')
-        .doc(data.id)
-        .set({ Historial: [{}] },
-          { merge: true })
-        .then(res => { console.log(res); }, err => reject(err));
+        .collection('Usuario/' + email + '/Historial')
+        .add(data)
+        .then(res => { resolve(res); }, err => reject(err));
     });
   }
 
-  ActualizarHistorial(data: any, tarjeta: any): any {
-    console.log(tarjeta);
-    return new Promise<any>((resolve, reject) => {
-      this.firestore
-        .collection('Historial')
-        .doc(data)
-        .set({ Historial: tarjeta },
-          { merge: true })
-        .then(res => { console.log(res); console.log(tarjeta); }, err => reject(err));
-    });
+  getCarrito(email: any): any {
+    return this.firestore.collection('Usuario/' + email + '/Historial').snapshotChanges();
   }
 }

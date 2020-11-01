@@ -16,3 +16,15 @@ export interface Card2 {
     Cantidad: number;
     availability: number[];
 }
+
+export interface Card3 {
+    nombre: string;
+    cantidad: number;
+    precio: number;
+    total: number;
+    imagen: string;
+    chargeRate: number;
+    cantidadActual: number;
+    cantidadAnterior: number;
+    customIdName: string;
+}
