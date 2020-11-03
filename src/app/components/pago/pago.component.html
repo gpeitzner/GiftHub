@@ -1,57 +1,169 @@
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-sm-6 col-md-6 col-lg-6" style="margin-top: 10vh">
-            <div class="text-center font-weight-light mt-4" style="font-size: 1.5em">
-                <div class="text-center">
-                    <img src="assets/tarjeta.png" alt="" srcset="" />
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+<nav class="navbar navbar-light bg-light" id='navbar'>
+    <a class="navbar-brand" href="#">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-card-heading" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                        <path fill-rule="evenodd"
+                            d="M3 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
+                        <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1z" />
+                    </svg>
                 </div>
-                 <h3> TOTAL A PAGAR: Q. {{total}}</h3>
+
             </div>
-            <form [formGroup]="Formulario" id="Formulario" (ngSubmit)="Pay()" class="border p-4">
-                <div>
-                    <p class="font-weight-bold" style="font-size: 0.9em">Nombre Titular:*</p>
-                    <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre Titular"
-                        aria-describedby="basic-addon2" formControlName="NombreT" id="NombreT" />
-                </div>
-                <div>
-                    <p class="font-weight-bold" style="font-size: 0.9em">Numero de Tarjeta:*</p>
-                    <input type="text" class="form-control" placeholder="0000 0000 0000 0000"
-                        aria-label="Numero de Tarjeta" aria-describedby="basic-addon2" formControlName="NumeroT"
-                        id="NumeroT" />
-                </div>
-                <p class="font-weight-bold" style="font-size: 0.9em">Fecha Expiración:*</p>
-                <div class="form-row">
+        </div>
 
-                    <div class="col">
-                        <select name="mes" id="mes" class="form-control">
-                            <option selected disabled>MM</option>
-                            <option *ngFor="let mes of months" [ngValue]="mes.id">
-                                <span>{{ mes.mm }}</span>
-                            </option>
-                        </select>
+
+        <h1 id='titulo'>Catálogo</h1>
+    </a>
+    <div class="col">
+        <a class="btn btn-outline-primary btn-sm float-lg-right" [routerLink]="['/Catalogo']">Regresar</a>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="container" id="pagoContainer">
+        <div class="row justify-content-center">
+            <div class="col-sm-6 col-md-6 col-lg-6" style="margin-top: 10vh">
+                <div class="text-center font-weight-light mt-4" style="font-size: 1.5em">
+                    <div class="text-center">
+                        <img src="assets/tarjeta.png" alt="" srcset="" />
                     </div>
-                    <div class="col">
-
-                        <select name="year" id="year" class="form-control">
-                            <option selected disabled>YYYY</option>
-                            <option *ngFor="let year of years" [ngValue]="year.id">
-                                <span>{{ year.yy }}</span>
-                            </option>
-                        </select>
+                    <h3> TOTAL A PAGAR: $. {{total}} &nbsp;&nbsp; Q. {{total2}} </h3>
+                </div>
+                <form [formGroup]="Formulario" id="Formulario" (ngSubmit)="Pay()" class="border p-4">
+                    <div>
+                        <p class="font-weight-bold" style="font-size: 0.9em">Nombre Titular:*</p>
+                        <input type="text"
+                            [className]="Formulario.get('NombreT').invalid ||(Formulario.get('NombreT').invalid &&  Formulario.get('NombreT').touched) ? 'is-invalid'+' form-control' : 'is-valid'+' form-control'"
+                            placeholder="Nombre" aria-label="Nombre Titular" aria-describedby="basic-addon2"
+                            formControlName="NombreT" id="NombreT" />
+                        <div class="invalid-feedback">
+                            Nombre titular requerido
+                        </div>
                     </div>
 
-                </div>
-                <div class="form-row">
-                    <div class="col-5">
-                        <p class="font-weight-bold" style="font-size: 0.9em">CCV:*</p>
-                        <input type="password" class="form-control" placeholder="000" aria-label="CCV"
-                            aria-describedby="basic-addon2" formControlName="ccv" id="ccv" />
+                    <div>
+                        <p class="font-weight-bold" style="font-size: 0.9em">Numero de Tarjeta:*</p>
+                        <input type="text"
+                            [className]="Formulario.get('NumeroT').invalid ||(Formulario.get('NumeroT').invalid &&  (Formulario.get('NumeroT').dirty || Formulario.get('NumeroT').touched)) ? 'is-invalid'+' form-control' : 'is-valid'+' form-control'"
+                            placeholder="0000 0000 0000 0000" maxlength="19" aria-label="Numero de Tarjeta"
+                            aria-describedby="basic-addon2" formControlName="NumeroT" id="NumeroT"
+                            (change)="FormatearEntrada()" />
+                        <div class="invalid-feedback">
+                            <div *ngIf="Formulario.get('NumeroT').errors?.required">
+                                Numero de tarjeta requerido
+                            </div>
+                            <div *ngIf="Formulario.get('NumeroT').errors?.pattern">
+                                Ingrese un número válido
+                            </div>
+                        </div>
                     </div>
-                </div> 
-                <button type="submit" class="btn btn-success mt-3" style="width: 100%">
-                    Pagar
-                </button>
-            </form>
+                    <p class="font-weight-bold" style="font-size: 0.9em">Fecha Expiración:*</p>
+                    <div class="form-row">
+
+                        <div class="col">
+                            <select name="mes" id="mes"
+                                [className]="Formulario.get('mes').invalid ||(Formulario.get('mes').invalid &&  Formulario.get('mes').touched) ? 'is-invalid'+' form-control' : 'is-valid'+' form-control'"
+                                formControlName="mes">
+                                <option selected disabled>MM</option>
+                                <option *ngFor="let mes of months" [ngValue]="mes.id">
+                                    <span>{{ mes.mm }}</span>
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Mes de expiracion requerido
+                            </div>
+                        </div>
+                        <div class="col">
+
+                            <select name="year" id="year"
+                                [className]="Formulario.get('year').invalid ||(Formulario.get('year').invalid &&  Formulario.get('year').touched) ? 'is-invalid'+' form-control' : 'is-valid'+' form-control'"
+                                formControlName="year">
+                                <option selected disabled>YY</option>
+                                <option *ngFor="let year of years" [ngValue]="year.id">
+                                    <span>{{ year.yy }}</span>
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Año de expiracion requerido
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="col-5">
+                            <p class="font-weight-bold" style="font-size: 0.9em">CCV:*</p>
+
+
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><a (click)="CambiarEstado()">
+                                            <div *ngIf="!this.ver">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill"
+                                                    fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                                    <path fill-rule="evenodd"
+                                                        d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                                                </svg>
+                                            </div>
+                                            <div *ngIf="this.ver">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16"
+                                                    class="bi bi-eye-slash-fill" fill="currentColor"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M10.79 12.912l-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
+                                                    <path
+                                                        d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708l-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829z" />
+                                                    <path fill-rule="evenodd"
+                                                        d="M13.646 14.354l-12-12 .708-.708 12 12-.708.708z" />
+                                                </svg>
+                                            </div>
+
+                                        </a>
+                                    </div>
+                                </div>
+                                <input maxlength="3" [type]="this.type"
+                                    [className]="Formulario.get('ccv').invalid ||(Formulario.get('ccv').invalid &&  Formulario.get('ccv').touched) ? 'is-invalid'+' form-control' : 'is-valid'+' form-control'"
+                                    placeholder="000" aria-label="CCV" aria-describedby="basic-addon2"
+                                    formControlName="ccv" id="ccv" />
+                                <div class="invalid-feedback">
+                                    <div *ngIf="Formulario.get('ccv').errors?.required">
+                                        Código de seguridad requerido
+                                    </div>
+                                    <div *ngIf="Formulario.get('ccv').errors?.pattern">
+                                        Ingrese un número de código de seguridad requerido válido
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col">
+
+                            <p class="font-weight-bold" style="font-size: 0.9em">Moneda:*</p>
+                            <select name="moneda" id="moneda"
+                                [className]="Formulario.get('moneda').invalid ||(Formulario.get('moneda').invalid &&  Formulario.get('moneda').touched) ? 'is-invalid'+' form-control' : 'is-valid'+' form-control'"
+                                formControlName="moneda">
+                                <option selected disabled>Moneda</option>
+                                <option *ngFor="let monedas of moneda  " [ngValue]="monedas.id">
+                                    <span>{{ monedas.v }}</span>
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Elija la moneda de pago
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-3" style="width: 100%">
+                        Pagar
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
+
 </div>

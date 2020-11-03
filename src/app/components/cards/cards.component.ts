@@ -74,8 +74,7 @@ export class CardsComponent implements OnInit {
           }, () => { }
           );
 
-
-
+        console.log(JSON.stringify(this.tar));
       }, () => { }
       );
 

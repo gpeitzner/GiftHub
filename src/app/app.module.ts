@@ -16,6 +16,7 @@ import { PagoComponent } from './components/pago/pago.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { HistoryComponent } from './components/history/history.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,7 @@ import { CarritoComponent } from './components/carrito/carrito.component';
     AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
   ],
   providers: [CardService],
   bootstrap: [AppComponent],

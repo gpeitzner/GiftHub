@@ -16,7 +16,16 @@ export class ComprasService {
     });
   }
 
-  getCarrito(email: any): any {
+  getHistorial(email: any): any {
     return this.firestore.collection('Usuario/' + email + '/Historial').snapshotChanges();
+  }
+
+  CreateInventario(email: any, data: any): any {
+    return new Promise<any>((resolve, reject) => {
+      this.firestore
+        .collection('Usuario/' + email + '/Inventario')
+        .add(data)
+        .then(res => { resolve(res); }, err => reject(err));
+    });
   }
 }

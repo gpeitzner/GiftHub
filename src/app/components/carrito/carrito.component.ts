@@ -13,6 +13,7 @@ export class CarritoComponent implements OnInit {
   datos: Card3[] = [];
   usuario: string;
   total: number;
+  totalRecargo: number;
   constructor(private carritoS: CarritoService, private userS: UserService, private router: Router) { }
 
   ngOnInit(): void {
@@ -22,6 +23,7 @@ export class CarritoComponent implements OnInit {
   cargarCarrito(): void {
     this.usuario = this.userS.user.correo;
     this.total = 0;
+    this.totalRecargo = 0;
     this.carritoS.getCarrito(this.usuario)
       .subscribe((result) => {
         console.log(result);
@@ -31,6 +33,7 @@ export class CarritoComponent implements OnInit {
           this.datos[x].cantidadActual = this.datos[x].cantidad;
           this.datos[x].cantidadAnterior = this.datos[x].cantidad;
           this.total = this.total + this.datos[x].total;
+          this.totalRecargo = this.totalRecargo + this.datos[x].chargeRate * this.datos[x].cantidad;
         }
       }, () => { }
       );
@@ -45,8 +48,10 @@ export class CarritoComponent implements OnInit {
         this.datos[x].total = tarjeta.cantidadActual * tarjeta.precio;
       }
     }
-    const temp = this.total - tarjeta.cantidadAnterior * tarjeta.precio;
+    let temp = this.total - tarjeta.cantidadAnterior * tarjeta.precio;
     this.total = 0 + temp + tarjeta.cantidadActual * tarjeta.precio;
+    temp = this.totalRecargo - tarjeta.cantidadAnterior * tarjeta.chargeRate;
+    this.totalRecargo = 0 + temp + tarjeta.cantidadActual * tarjeta.chargeRate;
     tarjeta.cantidadAnterior = tarjeta.cantidadActual;
     console.log(JSON.stringify(this.datos));
   }
@@ -75,10 +80,16 @@ export class CarritoComponent implements OnInit {
       );
 
     }
+
+  }
+
+  RedireccionCatalogo(): void {
+    this.ActualizarCarrito();
     this.router.navigateByUrl('/Catalogo');
   }
 
   PagoRedireccion(): void {
-    this.router.navigateByUrl('/pago')
+    this.ActualizarCarrito();
+    this.router.navigateByUrl('/pago');
   }
 }

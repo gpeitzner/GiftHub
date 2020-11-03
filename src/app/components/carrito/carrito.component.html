@@ -20,7 +20,7 @@
         <h1 id='titulo'>Carrito de Compras</h1>
     </a>
     <div class="col">
-        <a class="btn btn-outline-primary btn-sm float-lg-right" (click)="ActualizarCarrito()">Regresar</a>
+        <a class="btn btn-outline-primary btn-sm float-lg-right" (click)="RedireccionCatalogo()">Regresar</a>
     </div>
 </nav>
 <div class="container-fluid">
@@ -48,7 +48,7 @@
                                 <td><input type="number" class="form-control" [(ngModel)]="tarjeta.cantidadActual"
                                         (ngModelChange)="Recalcular(tarjeta)" min="1" placeholder="0"></td>
                                 <td>{{tarjeta.precio}}</td>
-                                <td>{{tarjeta.chargeRate}}</td>
+                                <td>{{tarjeta.chargeRate*tarjeta.cantidadActual}}</td>
                                 <td><input type="text" class="form-control"
                                         value={{tarjeta.precio*tarjeta.cantidadActual}} disabled></td>
                                 <td><a class="btn btn-outline-primary btn-sm float-lg-right"
@@ -59,12 +59,12 @@
                             <tr>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
                                 <td><a class="btn btn-outline-primary btn-sm float-lg-right" (click)="PagoRedireccion()">Comprar</a> </td>
                                 <td>TOTAL</td>
+                                <td><input type="text" class="form-control" id="total2" [(ngModel)]="totalRecargo" disabled></td>
                                 <td><input type="text" class="form-control" id="total" [(ngModel)]="total" disabled>
                                 </td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>
