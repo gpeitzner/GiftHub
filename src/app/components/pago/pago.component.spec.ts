@@ -16,6 +16,7 @@ import { TipoCambioService } from 'src/app/services/tipo-cambio.service';
 describe('PagoComponent', () => {
   let component: PagoComponent;
   let fixture: ComponentFixture<PagoComponent>;
+  // tslint:disable-next-line: prefer-const
   let httpMock: HttpTestingController;
   const formBuilder: FormBuilder = new FormBuilder();
   const mockUser = users[0];
@@ -85,7 +86,8 @@ class UserServiceMock {
     apellido: 'Ajpop',
     correo: users[4].email,
     dpi: '3031111430108',
-    edad: '22'
+    edad: '22',
+    customIdName:  users[4].email
   };
 }
 

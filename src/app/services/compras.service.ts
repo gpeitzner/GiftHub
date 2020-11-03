@@ -20,11 +20,12 @@ export class ComprasService {
     return this.firestore.collection('Usuario/' + email + '/Historial').snapshotChanges();
   }
 
-  CreateInventario(email: any, data: any): any {
+  CreateInventario(email: any, id: any, data: any): any {
     return new Promise<any>((resolve, reject) => {
       this.firestore
         .collection('Usuario/' + email + '/Inventario')
-        .add(data)
+        .doc(id)
+        .set(data)
         .then(res => { resolve(res); }, err => reject(err));
     });
   }

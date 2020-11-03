@@ -6,4 +6,5 @@ export interface UsuarioI{
     correo: string;
     dpi: string;
     edad: string;
+    customIdName: string;
 }

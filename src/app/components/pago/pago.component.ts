@@ -71,7 +71,7 @@ export class PagoComponent implements OnInit {
     private router: Router) {
 
     this.Formulario = this.formBuilder.group({
-      NombreT: ['', Validators.required,],
+      NombreT: ['', Validators.required],
       NumeroT: new FormControl('', [Validators.required, Validators.pattern(/^((0|[1-9]\d*){4} ){3}(0|[1-9]\d*){4}$/)]),
       mes: new FormControl('MM', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
       year: new FormControl('YY', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
@@ -121,27 +121,32 @@ export class PagoComponent implements OnInit {
     this.valid = false;
     let formularioValido = 'no_valido';
     console.log('Valores del form --> ', this.Formulario.value);
+
+    let descripcion: string;
+    descripcion = 'articulos:\n';
+    let registro = {};
+    let numeroTarjeta = [];
+    let tot: number;
+    let moneda: string;
+    moneda = '';
+    tot = 0;
+    // tslint:disable-next-line: prefer-for-of
+    for (let x = 0; x < this.datos.length; x++) {
+      descripcion = descripcion +
+        ' tarjeta:' + this.datos[x].nombre +
+        ' cantidad:' + this.datos[x].cantidad +
+        ' subtotal:' + this.datos[x].total + '\n';
+
+    }
+
+
     if (this.Formulario.valid) {
       this.valid = true;
       console.log(this.Formulario.value.username);
       formularioValido = 'valido';
-      let descripcion: string;
-      descripcion = 'articulos:\n';
-      let registro = {};
-      // tslint:disable-next-line: prefer-for-of
-      for (let x = 0; x < this.datos.length; x++) {
-        descripcion = descripcion +
-          ' tarjeta:' + this.datos[x].nombre +
-          ' cantidad:' + this.datos[x].cantidad +
-          ' subtotal:' + this.datos[x].total + '\n';
-
-      }
 
       // ingresamos a la base
-      let tot: number;
-      let moneda: string;
-      moneda = '';
-      tot = 0;
+
       if (this.Formulario.value.moneda === 1) {
         tot = this.total2;
         moneda = 'quetzales';
@@ -150,10 +155,8 @@ export class PagoComponent implements OnInit {
         moneda = 'dolares';
       }
 
-      let numeroTarjeta = [];
+
       numeroTarjeta = String(this.Formulario.value.NumeroT).split(' ');
-
-
 
       const date: Date = new Date();
       registro = {
@@ -173,10 +176,81 @@ export class PagoComponent implements OnInit {
 
       return this.valid;
       //  console.log(JSON.stringify(registro));
-    }
-    console.log('Respuesta del servicio de pago --> ', formularioValido);
+    } else {
 
-    return this.valid;
+      console.log('Respuesta del servicio de pago --> ', formularioValido);
+      let errores: string;
+      errores = 'errores: \n';
+      const date: Date = new Date();
+      registro = {
+        Fecha: date.toLocaleDateString(),
+        Hora: date.toLocaleTimeString(),
+        Total: this.total,
+        Descripcion: errores,
+        Moneda: 'dolares',
+        estado: false,
+        tarjeta: 0
+
+      };
+
+      // tslint:disable-next-line: no-string-literal
+      if (this.Formulario.controls.NombreT?.errors?.required) {
+        errores = errores + ' Nombre con valor nulo,\n';
+      }
+      // tslint:disable-next-line: no-string-literal
+      if (this.Formulario.controls.NumeroT?.errors?.required || this.Formulario.controls.NumeroT?.errors?.pattern) {
+        errores = errores + ' Numero con valor nulo o inválido,\n';
+      } else {
+        numeroTarjeta = String(this.Formulario.value.NumeroT).split(' ');
+        // tslint:disable-next-line: no-string-literal
+        registro['tarjeta'] = numeroTarjeta[0] + 'XXXXXXXX' + numeroTarjeta[3];
+      }
+
+      // tslint:disable-next-line: no-string-literal
+      if (this.Formulario.controls.mes?.errors?.required || this.Formulario.controls.mes?.errors?.pattern) {
+        errores = errores + ' Mes  con valor nulo o inválido,\n';
+      }
+
+      // tslint:disable-next-line: no-string-literal
+      if (this.Formulario.controls.year?.errors?.required || this.Formulario.controls.year?.errors?.pattern) {
+        errores = errores + ' Año con valor nulo o inválido,\n';
+      }
+
+      // tslint:disable-next-line: no-string-literal
+      if (this.Formulario.controls.ccv?.errors?.required || this.Formulario.controls.ccv?.errors?.pattern) {
+        errores = errores + ' CCV con valor nulo o inválido,\n';
+      }
+      // tslint:disable-next-line: no-string-literal
+      if (this.Formulario.controls.moneda?.errors?.required || this.Formulario.controls.moneda?.errors?.pattern) {
+        errores = errores + ' Moneda con valor nulo o inválido,\n';
+      } else {
+        // tslint:disable-next-line: no-string-literal
+        if (this.Formulario.value.moneda === 1) {
+
+          // tslint:disable-next-line: no-string-literal
+          registro['total'] = this.total2;
+          // tslint:disable-next-line: no-string-literal
+          registro['Moneda'] = 'quetzales';
+        } else {
+          tot = this.total;
+          // tslint:disable-next-line: no-string-literal
+          registro['Moneda'] = 'dolares';
+        }
+      }
+      // tslint:disable-next-line: no-string-literal
+      registro['Descripcion'] = errores;
+
+
+      // tslint:disable-next-line: no-string-literal
+      console.log(this.Formulario.controls.NombreT.errors?.required);
+      this.comprasS.CrearHistorial(this.usuario, registro).then(res => {
+        console.log(registro);
+        console.log(res);
+      });
+
+      return this.valid;
+    }
+
 
   }
 
@@ -186,16 +260,33 @@ export class PagoComponent implements OnInit {
       const obj = {
         image: this.datos[x].imagen,
         name: this.datos[x].nombre,
-        cantidad: this.datos[x].cantidad
-
+        precio: this.datos[x].precio
       };
-      this.comprasS.CreateInventario(this.usuario, obj).then(res => {
-        console.log('agregado a inventario');
-        return;
-      });
 
+      for (let j = 0; j < this.datos[x].cantidad; j++) {
+        const id: string = this.uuidv4();
+        this.comprasS.CreateInventario(this.usuario, id, obj).then(res => {
+          console.log('agregado a inventario #' + j);
+          return;
+        });
+      }
       this.EliminarTarjeta(this.datos[x]);
     }
+  }
+
+  uuidv4(): any {
+    let char: string;
+    char = 'abcdefghijklmnopqrstuvwxyzABSDEFGHIJKLMNOPQRSTUVWXYZ1234567890ABCabc123456789101112';
+    let id: string;
+    id = '';
+    for (let i = 0; i < 8; i++) {
+      id = id + char.charAt(this.randomInt(0, char.length));
+    }
+    return String(id);
+  }
+
+  randomInt(min: any, max: any): any {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   CambiarEstado(): any {

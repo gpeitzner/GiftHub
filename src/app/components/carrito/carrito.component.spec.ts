@@ -49,6 +49,7 @@ class UserServiceMock {
     apellido: 'Ajpop',
     correo: users[4].email,
     dpi: '3031111430108',
+    customIdName:  users[4].email,
     edad: '22'
   };
 }

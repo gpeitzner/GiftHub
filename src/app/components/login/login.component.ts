@@ -12,9 +12,9 @@ export class LoginComponent implements OnInit {
   alert: boolean;
   username: string;
   password: string;
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router, private userService: UserService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   /**
    * Login an user with username and password entered.
@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
                     this.showLoginError();
                   } else {
                     this.userService.user = usernameResults[0];
+                    this.userService.user.correo = this.userService.user.customIdName;
                     this.alert = false;
                     localStorage.setItem('username', this.username);
                     this.router.navigateByUrl('/Catalogo');
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit {
               );
           } else {
             this.userService.user = emailResults[0];
+            this.userService.user.correo = this.userService.user.customIdName;
             this.alert = false;
             this.router.navigateByUrl('/Catalogo');
           }
