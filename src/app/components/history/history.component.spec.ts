@@ -1,17 +1,35 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { history as dummyHistory, rHistory } from '../../mocks/history';
 import { HistoryComponent } from './history.component';
 import { HistoryService } from '../../services/history.service';
-import { history as historyMock } from '../../mocks/history';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { UserService } from '../../services/user.service';
 
 describe('HistoryComponent', () => {
   let component: HistoryComponent;
   let fixture: ComponentFixture<HistoryComponent>;
   let service: HistoryService;
+  let serviceUser: UserService;
+
+  const AngularFirestoreStub = {
+    doc: () => ({
+        collection: () => ({
+            valueChanges: () => ({
+              subscribe: (cb) => {
+                cb(dummyHistory);
+              }
+            })
+        })
+    }),
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HistoryComponent ]
+      declarations: [ HistoryComponent ],
+      providers: [
+        { provide: AngularFirestore, useValue: AngularFirestoreStub },
+      ],
     })
     .compileComponents();
   });
@@ -21,9 +39,21 @@ describe('HistoryComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     service = TestBed.inject(HistoryService);
+    serviceUser = TestBed.inject(UserService);
+    serviceUser.user = {
+      id: 'XXXX',
+      username: 'XXX',
+      password: 'XXXX',
+      nombre: 'XXX',
+      apellido: 'XXX',
+      correo: 'XXX',
+      dpi: 'XXX',
+      edad: '0'
+    };
   });
 
   it('should create', () => {
+
     expect(component).toBeTruthy();
   });
 
@@ -31,7 +61,7 @@ describe('HistoryComponent', () => {
     service.getHistory = () => {
       return new Promise((resolve) => {
         resolve(
-          historyMock
+          rHistory
         );
       });
     };
@@ -42,7 +72,7 @@ describe('HistoryComponent', () => {
   });
 
   it('should render elements in table', () => {
-    component.history = historyMock;
+    component.history = rHistory;
     fixture.detectChanges();
 
     const bannerElement: HTMLElement = fixture.nativeElement;
@@ -50,6 +80,6 @@ describe('HistoryComponent', () => {
     const elementsInTable = Array.from(
       table.getElementsByClassName('table-row')
     );
-    expect(elementsInTable.length).toEqual(historyMock.length);
+    expect(elementsInTable.length).toEqual(rHistory.length);
   });
 });
