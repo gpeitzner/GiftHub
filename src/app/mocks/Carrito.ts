@@ -28,3 +28,9 @@ export const carrito = [
     }
 
 ];
+
+export const tipoC = [
+    {
+        total: '7.85'
+    }
+];

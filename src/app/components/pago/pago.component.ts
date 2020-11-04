@@ -22,9 +22,20 @@ import { Router } from '@angular/router';
 export class PagoComponent implements OnInit {
   total: number; // total quetzales
   total2: number; // total dolares
+  Cambio: number;
   ver: boolean;
   type: string;
   valNum: string;
+  numero: number;
+  registro = {
+    Fecha: '',
+    Hora: '',
+    Total: 0,
+    Descripcion: '',
+    Moneda: '',
+    estado: false,
+    tarjeta: ''
+  };
   months = [
     { id: 1, mm: '01' },
     { id: 2, mm: '02' },
@@ -60,6 +71,7 @@ export class PagoComponent implements OnInit {
   ];
   Formulario: FormGroup;
   valid: boolean;
+
   usuario: string;
   datos: Card3[] = [];
   constructor(
@@ -86,7 +98,9 @@ export class PagoComponent implements OnInit {
   ngOnInit(): void {
     this.ver = false;
     this.type = 'password';
+    this.numero = 0;
     this.valNum = '';
+    this.valid = false;
     this.CalcularTotal();
     console.log(this.total);
     this.ObtenerTipoCambio();
@@ -96,6 +110,7 @@ export class PagoComponent implements OnInit {
     this.tipoC.getTipoCambio().subscribe((result) => {
       console.log('tipo cambio');
       console.log(result[0].total);
+      this.Cambio = parseFloat(result[0].total);
       this.total2 = this.total * parseFloat(result[0].total);
       this.total2 = Number(this.total2.toFixed(2));
     }, () => { });
@@ -118,14 +133,13 @@ export class PagoComponent implements OnInit {
   }
 
   Pay(): any {
+    this.numero = 0;
     this.valid = false;
     let formularioValido = 'no_valido';
     console.log('Valores del form --> ', this.Formulario.value);
 
     let descripcion: string;
     descripcion = 'articulos:\n';
-    let registro = {};
-    let numeroTarjeta = [];
     let tot: number;
     let moneda: string;
     moneda = '';
@@ -141,6 +155,7 @@ export class PagoComponent implements OnInit {
 
 
     if (this.Formulario.valid) {
+
       this.valid = true;
       console.log(this.Formulario.value.username);
       formularioValido = 'valido';
@@ -155,41 +170,47 @@ export class PagoComponent implements OnInit {
         moneda = 'dolares';
       }
 
-
-      numeroTarjeta = String(this.Formulario.value.NumeroT).split(' ');
-
       const date: Date = new Date();
-      registro = {
+      this.registro = {
         Fecha: date.toLocaleDateString(),
         Hora: date.toLocaleTimeString(),
         Total: tot,
         Descripcion: descripcion,
         Moneda: moneda,
         estado: true,
-        tarjeta: numeroTarjeta[0] + 'XXXXXXXX' + numeroTarjeta[3]
-
+        tarjeta: this.EncriptarTarjeta(String(this.Formulario.value.NumeroT))
       };
-      this.comprasS.CrearHistorial(this.usuario, registro).then(res => {
-        console.log(res);
+      // console.log(this.registro);
+      this.comprasS.CrearHistorial(this.usuario, this.registro).then(res => {
+        // console.log(res);
       });
       this.LlenarInventario();
-
-      return this.valid;
+      console.log('registro' + JSON.stringify(this.registro));
+      this.Formulario.controls.NombreT.setValue('');
+      this.Formulario.controls.NumeroT.setValue('');
+      this.Formulario.controls.mes.setValue('MM');
+      this.Formulario.controls.year.setValue('YY');
+      this.Formulario.controls.ccv.setValue('');
+      this.Formulario.controls.moneda.setValue('Moneda');
+      this.total = 0;
+      this.total2 = 0;
+      this.numero = 1;
+      return true;
       //  console.log(JSON.stringify(registro));
     } else {
-
+      this.numero = 2;
       console.log('Respuesta del servicio de pago --> ', formularioValido);
       let errores: string;
       errores = 'errores: \n';
       const date: Date = new Date();
-      registro = {
+      this.registro = {
         Fecha: date.toLocaleDateString(),
         Hora: date.toLocaleTimeString(),
         Total: this.total,
         Descripcion: errores,
         Moneda: 'dolares',
         estado: false,
-        tarjeta: 0
+        tarjeta: ''
 
       };
 
@@ -200,10 +221,9 @@ export class PagoComponent implements OnInit {
       // tslint:disable-next-line: no-string-literal
       if (this.Formulario.controls.NumeroT?.errors?.required || this.Formulario.controls.NumeroT?.errors?.pattern) {
         errores = errores + ' Numero con valor nulo o inválido,\n';
-      } else {
-        numeroTarjeta = String(this.Formulario.value.NumeroT).split(' ');
+      } else if (this.Formulario.controls.NumeroT.valid) {
         // tslint:disable-next-line: no-string-literal
-        registro['tarjeta'] = numeroTarjeta[0] + 'XXXXXXXX' + numeroTarjeta[3];
+        this.registro['tarjeta'] = this.EncriptarTarjeta(String(this.Formulario.value.NumeroT));
       }
 
       // tslint:disable-next-line: no-string-literal
@@ -228,29 +248,29 @@ export class PagoComponent implements OnInit {
         if (this.Formulario.value.moneda === 1) {
 
           // tslint:disable-next-line: no-string-literal
-          registro['total'] = this.total2;
+          this.registro['total'] = this.total2;
           // tslint:disable-next-line: no-string-literal
-          registro['Moneda'] = 'quetzales';
+          this.registro['Moneda'] = 'quetzales';
         } else {
           tot = this.total;
           // tslint:disable-next-line: no-string-literal
-          registro['Moneda'] = 'dolares';
+          this.registro['Moneda'] = 'dolares';
         }
       }
       // tslint:disable-next-line: no-string-literal
-      registro['Descripcion'] = errores;
+      this.registro['Descripcion'] = errores;
 
 
       // tslint:disable-next-line: no-string-literal
       console.log(this.Formulario.controls.NombreT.errors?.required);
-      this.comprasS.CrearHistorial(this.usuario, registro).then(res => {
-        console.log(registro);
-        console.log(res);
+
+      this.comprasS.CrearHistorial(this.usuario, this.registro).then(res => {
+        // console.log(this.registro);
+        // console.log(res);
       });
 
-      return this.valid;
+      return false;
     }
-
 
   }
 
@@ -277,12 +297,27 @@ export class PagoComponent implements OnInit {
   uuidv4(): any {
     let char: string;
     char = 'abcdefghijklmnopqrstuvwxyzABSDEFGHIJKLMNOPQRSTUVWXYZ1234567890ABCabc123456789101112';
+    const numeros = '123456789';
     let id: string;
     id = '';
-    for (let i = 0; i < 8; i++) {
+
+    for (let j = 0; j < 2; j++) {
+      for (let i = 0; i < 3; i++) {
+        id = id + char.charAt(this.randomInt(0, char.length));
+      }
+      id = id + numeros.charAt(this.randomInt(0, numeros.length));
+    }
+    if (String(id).length !== 8) {
       id = id + char.charAt(this.randomInt(0, char.length));
     }
     return String(id);
+  }
+
+  EncriptarTarjeta(numero: string): any {
+    let numeroTarjeta = [];
+    numeroTarjeta = String(numero).split(' ');
+    console.log('tarjeta-->' + numeroTarjeta[0] + 'XXXXXXXX' + numeroTarjeta[3]);
+    return numeroTarjeta[0] + 'XXXXXXXX' + numeroTarjeta[3];
   }
 
   randomInt(min: any, max: any): any {

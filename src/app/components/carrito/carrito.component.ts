@@ -27,6 +27,8 @@ export class CarritoComponent implements OnInit {
     this.carritoS.getCarrito(this.usuario)
       .subscribe((result) => {
         console.log(result);
+        this.total = 0;
+        this.totalRecargo = 0;
         this.datos = result;
         // tslint:disable-next-line: prefer-for-of
         for (let x = 0; x < this.datos.length; x++) {
@@ -45,6 +47,7 @@ export class CarritoComponent implements OnInit {
     for (let x = 0; x < this.datos.length; x++) {
       if (this.datos[x].customIdName === tarjeta.customIdName) {
         this.datos[x].cantidad = tarjeta.cantidadActual;
+        console.log('cambia aca');
         this.datos[x].total = tarjeta.cantidadActual * tarjeta.precio;
       }
     }
@@ -53,16 +56,24 @@ export class CarritoComponent implements OnInit {
     temp = this.totalRecargo - tarjeta.cantidadAnterior * tarjeta.chargeRate;
     this.totalRecargo = 0 + temp + tarjeta.cantidadActual * tarjeta.chargeRate;
     tarjeta.cantidadAnterior = tarjeta.cantidadActual;
+    console.log('cambia aca');
     console.log(JSON.stringify(this.datos));
   }
+
   EliminarTarjeta(tarjeta: Card3): void {
+
+
+
     this.carritoS.DeleteTarjeta(this.usuario, tarjeta.customIdName).then(res => {
       console.log(res);
+      /*let temp = this.total - tarjeta.cantidadActual * tarjeta.precio;
+      console.log(this.total);
+      this.total = 0 + temp;
+      temp = this.totalRecargo - tarjeta.cantidadActual * tarjeta.chargeRate;
+      this.totalRecargo = 0 + temp;
+      console.log(this.total + '**' + this.totalRecargo);*/
     }, () => { }
     );
-
-    const temp = this.total - tarjeta.cantidadAnterior * tarjeta.precio;
-    this.total = 0 + temp + tarjeta.cantidadActual * tarjeta.precio;
   }
   ActualizarCarrito(): void {
 

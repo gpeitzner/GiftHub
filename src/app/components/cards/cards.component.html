@@ -38,6 +38,12 @@
 
 <div class="container-fluid">
     <div class="container" id="cardContainer">
+        <div *ngIf="this.agregado" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Se agregó correctamente el carrito de compras!</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         <div class="row mx-md-n5">
 
             <div *ngFor="let tarjeta of tar" id={{tarjeta.id}} class="card p-3" style="width: 18rem;">

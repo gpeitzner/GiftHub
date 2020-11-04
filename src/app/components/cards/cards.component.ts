@@ -16,6 +16,7 @@ export class CardsComponent implements OnInit {
   tarjetas: Card[] = [];
   precios = new Map<string, number>();
   data = [];
+  agregado = false;
 
   constructor(private cardsService: CardService, private carritoS: CarritoService, private userS: UserService, private router: Router) { }
 
@@ -92,9 +93,11 @@ export class CardsComponent implements OnInit {
       imagen: tarjeta.image,
       chargeRate: tarjeta.chargeRate
     };
+    this.agregado = false;
 
     this.carritoS.CrearCarrito(this.userS.user.correo, obj).then(res => {
       console.log(res);
+      this.agregado = true;
     });
 
   }
