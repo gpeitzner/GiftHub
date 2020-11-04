@@ -7,18 +7,23 @@ import { CardService } from 'src/app/services/card.service';
 import { Observable, of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { Precio } from '../../interfaces/Precio';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 describe('CardsComponent', () => {
   let component: CardsComponent;
   let fixture: ComponentFixture<CardsComponent>;
   const mockCards = cards;
-
+  const AngularFirestoreStub = {
+    collection: (someString) => {
+      return [];
+    },
+  };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       declarations: [ CardsComponent ]
       , // Here we swap the mocked version:
-      providers: [{provide: CardService, useClass: CardsServiceMock}]
+      providers: [{provide: CardService, useClass: CardsServiceMock}, { provide: AngularFirestore, useValue: AngularFirestoreStub }]
     })
     .compileComponents();
   });
