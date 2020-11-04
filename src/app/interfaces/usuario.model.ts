@@ -1,9 +1,9 @@
 export interface UsuarioI{
-    username:String;
-    pass:String;
-    nombre:String;
-    apellido:String;
-    correo:String;
-    dpi:String;
-    edad:String;
+    username: string;
+    pass: string;
+    nombre: string;
+    apellido: string;
+    correo: string;
+    dpi: string;
+    edad: string;
 }

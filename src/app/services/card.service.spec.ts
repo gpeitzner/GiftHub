@@ -2,6 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CardService } from './card.service';
 import { cards } from '../mocks/cards';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { of, Observable } from 'rxjs';
 
 describe('CardService', async () => {
   let httpMock: HttpTestingController;
@@ -11,9 +13,23 @@ describe('CardService', async () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [CardService],
+      providers: [CardService, AngularFirestore],
     });
-
+    const input: any[] = [
+      { apellido: 'carias', correo: 'prueba@gmail.com', dpi: '30018995910101', edad: '22', nombre: 'carlos', password: 'pass123', username: 'prueba' },
+    ];
+    const data = of(input);
+    const collectionStub = {
+      valueChanges: jasmine.createSpy('valueChanges').and.returnValue(data),
+    };
+    const angularFirestoreStub = {
+      collection: jasmine
+        .createSpy('collection')
+        .and.returnValue(collectionStub),
+    };
+    TestBed.overrideProvider(AngularFirestore, {
+      useValue: angularFirestoreStub,
+    });
     service = TestBed.inject(CardService);
     httpMock = TestBed.inject(HttpTestingController);
   });
