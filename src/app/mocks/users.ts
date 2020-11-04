@@ -45,7 +45,7 @@ export const users = [
   },
   {
     username: 'user5',
-    email: 'user5@email.com',
+    email: 'mindi.ajpop@gmail.com',
     password: 'pass5',
     firstNames: ['Antonia', ''],
     lastNames: ['Montoya', ''],

@@ -21,7 +21,7 @@ export class HistoryService {
     const user = this.userService.user;
     return new Promise<IHistory[]>((resolve, reject) => {
       if (user) {
-      const result = this.firestore.doc(`Usuario/${user.id}`);
+      const result = this.firestore.doc(`Usuario/${user.customIdName}`);
 
       result.collection('Historial').valueChanges().subscribe( res => {
         const data: IHistory[] = res.map( value => ({

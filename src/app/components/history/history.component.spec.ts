@@ -41,7 +41,7 @@ describe('HistoryComponent', () => {
     service = TestBed.inject(HistoryService);
     serviceUser = TestBed.inject(UserService);
     serviceUser.user = {
-      id: 'XXXX',
+      customIdName: 'XXXX',
       username: 'XXX',
       password: 'XXXX',
       nombre: 'XXX',

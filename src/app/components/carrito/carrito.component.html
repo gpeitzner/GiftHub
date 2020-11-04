@@ -1,0 +1,77 @@
+<nav class="navbar navbar-light bg-light" id='navbar'>
+    <a class="navbar-brand" href="#">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-door-closed-fill" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M4 1a1 1 0 0 0-1 1v13H1.5a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2a1 1 0 0 0-1-1H4zm2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                    </svg>
+                </div>
+
+            </div>
+        </div>
+
+
+        <h1 id='titulo'>Carrito de Compras</h1>
+    </a>
+    <div class="col">
+        <a class="btn btn-outline-primary btn-sm float-lg-right" (click)="RedireccionCatalogo()">Regresar</a>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="container" id="cardContainer">
+        <div class="row mx-md-n5">
+            <div class="card" style="width: 75rem;">
+                <div class="card-body">
+                    <table class="table ctable table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Imagen</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Recargo</th>
+                                <th scope="col">Subtotal</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let tarjeta of datos">
+                                <th scope="row"><img src={{tarjeta.imagen}} width="100" height="100"
+                                        class="rounded  img-thumbnail"></th>
+                                <td>{{tarjeta.nombre}}</td>
+                                <td><input type="number" class="form-control" [(ngModel)]="tarjeta.cantidadActual"
+                                        (ngModelChange)="Recalcular(tarjeta)" min="1" placeholder="0"></td>
+                                <td>{{tarjeta.precio}}</td>
+                                <td>{{tarjeta.chargeRate*tarjeta.cantidadActual}}</td>
+                                <td><input type="text" class="form-control"
+                                        value={{tarjeta.precio*tarjeta.cantidadActual}} disabled></td>
+                                <td><a class="btn btn-outline-primary btn-sm float-lg-right"
+                                        (click)="EliminarTarjeta(tarjeta)">Eliminar</a> </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td><a class="btn btn-outline-primary btn-sm float-lg-right" (click)="PagoRedireccion()">Comprar</a> </td>
+                                <td>TOTAL</td>
+                                <td><input type="text" class="form-control" id="total2" [(ngModel)]="this.totalRecargo" disabled></td>
+                                <td><input type="text" class="form-control" id="total" [(ngModel)]="this.total" disabled>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

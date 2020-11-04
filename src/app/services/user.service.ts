@@ -24,7 +24,7 @@ export class UserService {
       .collection('Usuario', (ref) =>
         ref.where('correo', '==', email).where('password', '==', password)
       )
-      .valueChanges({ idField: 'id'});
+      .valueChanges({ idField: 'customIdName' });
   }
 
   /**
@@ -37,6 +37,6 @@ export class UserService {
       .collection('Usuario', (ref) =>
         ref.where('username', '==', username).where('password', '==', password)
       )
-      .valueChanges({ idField: 'id'});
+      .valueChanges({ idField: 'customIdName' });
   }
 }

@@ -1,23 +1,52 @@
+<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 <nav class="navbar navbar-light bg-light" id='navbar'>
     <a class="navbar-brand" href="#">
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-card-heading" fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
-            <path fill-rule="evenodd"
-                d="M3 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
-            <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1z" />
-        </svg>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-door-closed-fill" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M4 1a1 1 0 0 0-1 1v13H1.5a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2a1 1 0 0 0-1-1H4zm2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                    </svg>
+                </div>
+
+            </div>
+        </div>
+
+
         <h1 id='titulo'>Catálogo</h1>
     </a>
-    <a routerLink="/history">Historial</a>
+    <div class="col">
+        <a class="btn btn-outline-primary btn-sm float-lg-right" [routerLink]="['/perfil']">Editar Perfil
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+            </svg></a>
+    </div>
+    <div class="col">
+        <a class="btn btn-outline-primary btn-sm float-lg-right" (click)="abrirCarrito()">Carrito de compras
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus-fill" fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM4 14a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm7 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
+            </svg>
+        </a>
+    </div>
 </nav>
 
 <div class="container-fluid">
     <div class="container" id="cardContainer">
+        <div *ngIf="this.agregado" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Se agregó correctamente el carrito de compras!</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         <div class="row mx-md-n5">
 
-            <div *ngFor="let tarjeta of tarjetas" class="card p-3" style="width: 18rem;">
+            <div *ngFor="let tarjeta of tar" id={{tarjeta.id}} class="card p-3" style="width: 18rem;">
                 <img class="card-img-top" src={{tarjeta.image}} alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">
@@ -27,13 +56,14 @@
                                 d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2.5 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z" />
                         </svg>{{tarjeta.name}}</h5>
                     <p class="card-text">Recargo: {{tarjeta.chargeRate}}</p>
-                    <p class="card-text">Precio: {{precios.get(tarjeta.id)}}</p>
+                    <p class="card-text">Precio: {{tarjeta.Precio}}</p>
 
                     <div class="form-group">
-                        <input type="number" class="form-control" id="cantidad" placeholder="0">
+                        <input type="number" class="form-control" id="cantidad" [(ngModel)]="tarjeta.Cantidad" min="1"
+                            placeholder="0">
                     </div>
 
-                    <a class="btn btn-success" (click)="comprar(tarjeta)">Comprar</a>
+                    <a class="btn btn-success" (click)="Agregar(tarjeta)">Agregar</a>
                 </div>
             </div>
 

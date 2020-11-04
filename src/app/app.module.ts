@@ -15,6 +15,8 @@ import { GiftcardsComponent } from './components/giftcards/giftcards.component';
 import { PagoComponent } from './components/pago/pago.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { HistoryComponent } from './components/history/history.component';
+import { CarritoComponent } from './components/carrito/carrito.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,8 @@ import { HistoryComponent } from './components/history/history.component';
     GiftcardsComponent,
     PagoComponent,
     PerfilComponent,
-    HistoryComponent
+    HistoryComponent,
+    CarritoComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +37,7 @@ import { HistoryComponent } from './components/history/history.component';
     AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
   ],
   providers: [CardService],
   bootstrap: [AppComponent],

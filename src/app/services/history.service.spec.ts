@@ -36,7 +36,7 @@ describe('HistoryService', () => {
 
   it('getHistory', (done) => {
     serviceUser.user = {
-      id: 'XXXX',
+      customIdName: 'XXXX',
       username: 'XXX',
       password: 'XXXX',
       nombre: 'XXX',
