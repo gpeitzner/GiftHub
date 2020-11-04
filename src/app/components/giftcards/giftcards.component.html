@@ -10,7 +10,7 @@
                 <div class="card-body">
                   <h5 class="card-title">{{tarjeta.name}}</h5>
                   <p class="card-text">Valor: {{tarjeta.valor}}</p>
-                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                  <p class="card-text"><small class="text-muted">Código: {{tarjeta.id}}</small></p>
                   <button type="button" class="btn btn-light" (click)="boton(tarjeta.id)" data-toggle="modal" data-target="#exampleModal">Regalar giftcard</button>
                 </div>
               </div>
@@ -30,8 +30,8 @@
                 <a class="list-group-item list-group-item-action active">
                   Usuarios
                 </a>
-                <div *ngFor="let usuario of usuarios">
-                  <a (click)="registrarusuario(usuario.username)" class="list-group-item list-group-item-action">{{usuario.username}}</a>
+                <div *ngFor="let usuario of usuariosprueba">
+                  <a (click)="registrarusuario(usuario.id)" class="list-group-item list-group-item-action">{{usuario.username}}</a>
                 </div>
               </div>
             </div>
